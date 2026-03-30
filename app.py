@@ -20,12 +20,17 @@ def send_discord_message(content):
 
 # --- HÀM QUÀ TẶNG ---
 @st.dialog("Tèn ten! Quà của bé đâyyy 🎁")
-def show_gift_popup(message):
+def show_gift_popup(gift_item):
     st.balloons()
+    
     st.markdown(
-        f"<h2 style='text-align: center; color: #ff4b4b; line-height: 1.5;'>{message}</h2>", 
+        f"<h2 style='text-align: center; color: #ff4b4b; line-height: 1.5;'>{gift_item['text']}</h2>", 
         unsafe_allow_html=True
     )
+    
+    if gift_item.get("image"):
+        st.image(gift_item["image"], use_container_width=True)
+        
     st.write("")
     
     if st.button("Dạ yêuuu 🥰", use_container_width=True):
@@ -44,15 +49,36 @@ st.header("🎁 Hộp Quà Mỗi Ngày")
 st.write("Mỗi ngày một điều bất ngờ nhỏ dành cho em!")
 
 gifts = [
-    "Hôm nay em cực kỳ xinh đẹp! ✨",
-    "Anh yêu em nhiều hơn ngày hôm qua ❤️",
-    "Một voucher: Được anh đấm bóp vai 15 phút 💆‍♀️",
-    "Em là điều tuyệt vời nhất từng đến với anh 🌟",
-    "Nụ cười của em là liều thuốc cho anh đó 😊",
-    "Chúc công chúa của anh một ngày thật năng suất nhé!",
-    "Em luôn đẹp trong mắt anh và lúc mãi mãi là vậy nên là đừng tự ti nhaa ❤️",
-    "Check tin nhắn của anh chuaa 👀",
-    "Chỉ muốn nói là nhớ em lắm, yêu bé lắm 🩵🥰",
+    {
+        "text": "Gửi em một chiếc ôm to bự từ xa nèeee 🫂", 
+        "image": "https://media.tenor.com/Z4XEqJk4kXEAAAAM/hug.gif"
+    },
+    {
+        "text": "Bé bị phạt! Hình phạt là phải thơm anh 1 cái 😘", 
+        "image": "https://media.tenor.com/2RoSIfK_R_AAAAAM/cat-kiss.gif"
+    },
+    {
+        "text": "Anh sẽ luôn bảo vệ em như Howl bảo vệ Sophie vậy đó 🏰✨", 
+        "image": "https://media.tenor.com/bX0m2gT5GkMAAAAM/howls-moving-castle.gif"
+    },
+    {
+        "text": "Ting ting! Một suất gội đầu massage thư giãn miễn phí do chính tay anh phục vụ nha 💆‍♀️✨", 
+        "image": "https://media.tenor.com/M22T2I3g5vMAAAAM/massages-meow.gif"
+    },
+    
+    # Nhóm quà chỉ có chữ (giữ nguyên cảm xúc mộc mạc)
+    {"text": "Hôm nay em cực kỳ xinh đẹp! ✨", "image": None},
+    {"text": "Anh yêu em nhiều hơn ngày hôm qua ❤️", "image": None},
+    {"text": "Một voucher: Được anh đấm bóp vai 15 phút 💆‍♀️", "image": None},
+    {"text": "Em là điều tuyệt vời nhất từng đến với anh 🌟", "image": None},
+    {"text": "Nụ cười của em là liều thuốc cho anh đó 😊", "image": None},
+    {"text": "Chúc công chúa của anh một ngày thật năng suất nhé!", "image": None},
+    {"text": "Em luôn đẹp trong mắt anh và lúc mãi mãi là vậy nên là đừng tự ti nhaa ❤️", "image": None},
+    {"text": "Check tin nhắn của anh chuaa 👀", "image": None},
+    {"text": "Chỉ muốn nói là nhớ em lắm, yêu bé lắm 🩵🥰", "image": None},
+    {"text": "Bé nhớ nói 'dạ' với anh nhiều nhaa, anh thích lắm á, yêu cực luonn 🥹🥹", "image": None},
+    {"text": "Bé muốn gì nhắn anh ngay nàooo, anh sẵn sàng roi đâyyy 🥰", "image": None},
+    # {"text": "Buồn nè, cười lên nhaa đừng buồn như zay nữa áaa! 😤🥰", "image": "anh_nguoi_yeu.jpg"}
 ]
 
 if st.button("Mở quà ngay 🎁", key="open_gift"):
