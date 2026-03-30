@@ -3,7 +3,7 @@ import datetime
 import requests
 import random
 
-MY_DISCORD_ID = "<@sghpk0905>" 
+MY_DISCORD_ID = "<@472746897812226059>" 
 
 def send_discord_message(content):
     webhook_url = "https://discord.com/api/webhooks/1488241713003892958/if86rMDuP_xW_8A-WlL90OpbeidNcfBQWNB35YxFl83C_BbPeuL2GWRSA_Ptbg0SjYa_" 
