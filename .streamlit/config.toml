@@ -1,0 +1,12 @@
+[theme]
+# Màu nút bấm chính và các điểm nhấn (Ví dụ: Màu đỏ đô/hồng đậm)
+primaryColor = "#FF4B4B"
+
+# Màu nền toàn bộ app (Ví dụ: Màu hồng phấn cực nhạt)
+backgroundColor = "#FFF0F5"
+
+# Màu nền của các khối hộp, khung phụ (Ví dụ: Trắng)
+secondaryBackgroundColor = "#FFFFFF"
+
+# Màu chữ (Ví dụ: Đen nhạt)
+textColor = "#333333"
