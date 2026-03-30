@@ -78,7 +78,7 @@ gifts = [
     {"text": "Chỉ muốn nói là nhớ em lắm, yêu bé lắm 🩵🥰", "image": None},
     {"text": "Bé nhớ nói 'dạ' với anh nhiều nhaa, anh thích lắm á, yêu cực luonn 🥹🥹", "image": None},
     {"text": "Bé muốn gì nhắn anh ngay nàooo, anh sẵn sàng roi đâyyy 🥰", "image": None},
-    # {"text": "Buồn nè, cười lên nhaa đừng buồn như zay nữa áaa! 😤🥰", "image": "anh_nguoi_yeu.jpg"}
+    {"text": "Buồn nè, cười lên nhaa đừng buồn như zay nữa áaa! 😤🥰", "image": "lib/features/daily_gift/buon.jpg"}
 ]
 
 if st.button("Mở quà ngay 🎁", key="open_gift"):
