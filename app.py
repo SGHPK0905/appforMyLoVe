@@ -1,10 +1,8 @@
 import streamlit as st
 import datetime
 import requests
-import random # Thêm thư viện này để chọn quà ngẫu nhiên
+import random
 
-# --- CẤU HÌNH ---
-# Thay dãy số này bằng ID thật bạn vừa copy (Ví dụ: <@123456789>)
 MY_DISCORD_ID = "<@sghpk0905>" 
 
 def send_discord_message(content):
@@ -20,6 +18,19 @@ def send_discord_message(content):
     except Exception as e:
         st.error("Lỗi gửi thông báo rồi!")
 
+# --- HÀM QUÀ TẶNG ---
+@st.dialog("Tèn ten! Quà của bé đâyyy 🎁")
+def show_gift_popup(message):
+    st.balloons()
+    st.markdown(
+        f"<h2 style='text-align: center; color: #ff4b4b; line-height: 1.5;'>{message}</h2>", 
+        unsafe_allow_html=True
+    )
+    st.write("")
+    
+    if st.button("Dạ yêuuu 🥰", use_container_width=True):
+        st.rerun()
+
 # --- 1. CẤU HÌNH TRANG ---
 st.set_page_config(page_title="For You ❤️", page_icon="🎁", layout="centered")
 
@@ -28,7 +39,7 @@ st.write("Chào mừng em đến với trạm tiếp sức năng lượng!")
 
 st.divider()
 
-# --- 2. HỘP QUÀ NGẪU NHIÊN (MỚI) ---
+# --- 2. HỘP QUÀ NGẪU NHIÊN ---
 st.header("🎁 Hộp Quà Mỗi Ngày")
 st.write("Mỗi ngày một điều bất ngờ nhỏ dành cho em!")
 
@@ -46,8 +57,7 @@ gifts = [
 
 if st.button("Mở quà ngay 🎁", key="open_gift"):
     mon_qua = random.choice(gifts)
-    st.balloons()
-    st.success(f"Quà của em đây: **{mon_qua}**")
+    show_gift_popup(mon_qua)
 
 st.divider()
 
