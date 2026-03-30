@@ -128,5 +128,8 @@ st.header("🚨 Góc Cấp Cứu (SOS)")
 st.write("Tụt mood hay áp lực quá thì ấn vào đây nha 🥺")
 
 if st.button("Cứu em!!!", type="primary"):
+    st.toast("Đã phát tín hiệu cấp cứu cho anh! Anh sẽ onl liền. 🥺") 
+    send_discord_message(f"{MY_DISCORD_ID} 🚨 BÁO ĐỘNG ĐỎ! Bé nhà đang TỤT MOOD/ÁP LỰC kìa! Nhắn tin dỗ dành ngay!!! 🥺")
+    
     st.video("love.mp4") 
     st.caption("Anh luôn ở đây! Xem cái này cho đỡ buồn nha.")
