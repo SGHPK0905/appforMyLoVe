@@ -39,6 +39,9 @@ gifts = [
     "Em là điều tuyệt vời nhất từng đến với anh 🌟",
     "Nụ cười của em là liều thuốc cho anh đó 😊",
     "Chúc công chúa của anh một ngày thật năng suất nhé!"
+    "Em luôn đẹp trong mắt anh và lúc mãi mãi là vậy nên là đừng tự ti nhaa ❤️"
+    "Check tin nhắn của anh chuaa 👀"
+    "Chỉ muốn nói là nhớ em lắm, yêu bé lắm 🩵🥰"
 ]
 
 if st.button("Mở quà ngay 🎁", key="open_gift"):
