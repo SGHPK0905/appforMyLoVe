@@ -65,6 +65,33 @@ def show_gift_popup(gift_item, is_new=True):
 
 # --- 1. CẤU HÌNH TRANG ---
 st.set_page_config(page_title="For You ❤️", page_icon="🎁", layout="centered")
+
+st.markdown("""
+<style>
+div.stButton > button {
+    min-height: 55px; 
+    font-size: 16px !important; 
+    font-weight: 500 !important; 
+    border-radius: 12px !important; 
+}
+
+div.stButton > button[kind="primary"] {
+    min-height: 120px !important;
+    font-size: 30px !important;
+    font-weight: 900 !important;
+    text-transform: uppercase;
+    background-color: #FF0000 !important;
+    color: white !important;
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4) !important;
+}
+
+div.stButton > button[kind="primary"]:hover {
+    background-color: #CC0000 !important; /* Đỏ sậm hơn chút khi hover */
+}
+</style>
+""", unsafe_allow_html=True)
+
 st.title("Hi bé yêu của anh 🩵👋")
 st.write("Chào mừng em đến với trạm tiếp sức năng lượng!")
 st.divider()
@@ -266,11 +293,16 @@ if st.button("Gửi cho anh 🚀", use_container_width=True):
 st.divider()
 
 # --- 6. GÓC SOS ---
-st.header("🚨 Góc Cấp Cứu (SOS)")
-st.write("Tụt mood hay áp lực quá thì ấn vào đây nha 🥺")
+st.markdown("<h2 style='text-align: center;'>🚨 Góc Cấp Cứu</h2>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; font-size: 16px; margin-top: -15px;'>Tụt mood hay áp lực quá thì ấn vào đây nha 🥺</p>", unsafe_allow_html=True)
 
-if st.button("Cứu em!!!", type="primary"):
-    st.toast("Đã phát tín hiệu cấp cứu cho anh! Anh sẽ onl liền. 🥺") 
-    send_discord_message(f"{MY_DISCORD_ID} 🚨 BÁO ĐỘNG ĐỎ! Bé nhà đang TỤT MOOD/ÁP LỰC kìa! Nhắn tin dỗ dành ngay!!! 🥺")
-    st.video("love.mp4") 
-    st.caption("Anh luôn ở đây! Xem cái này cho đỡ buồn nha.")
+sos_c1, sos_c2, sos_c3 = st.columns([1, 5, 1])
+
+with sos_c2:
+    if st.button("Cứu em!!!", type="primary", use_container_width=True, key="sos_btn"):
+        st.toast("Đã phát tín hiệu cấp cứu!") 
+        send_discord_message(f"{MY_DISCORD_ID} 🚨 BÁO ĐỘNG ĐỎ! Bé nhà đang TỤT MOOD/ÁP LỰC kìa! Nhắn tin dỗ dành ngay!!! 🥺")
+        st.video("love.mp4") 
+        st.caption("Anh luôn ở đây! Xem cái này cho đỡ buồn nha.")
+st.write("")
+st.write("")
