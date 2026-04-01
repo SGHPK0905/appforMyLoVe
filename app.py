@@ -9,14 +9,21 @@ MY_DISCORD_ID = "<@472746897812226059>"
 
 # --- HÀM XỬ LÝ DỮ LIỆU (PERSISTENCE) ---
 def load_data():
+    default_data = {
+        "last_opened_date": "", 
+        "opened_indices": [],
+        "events": []
+    }
     if os.path.exists("progress.json"):
         try:
             with open("progress.json", "r", encoding="utf-8") as f:
-                return json.load(f)
+                data = json.load(f)
+                if "events" not in data:
+                    data["events"] = []
+                return data
         except Exception:
             pass
-            
-    return {"last_opened_date": "", "opened_indices": []}
+    return default_data
 
 def save_data(data):
     with open("progress.json", "w", encoding="utf-8") as f:
@@ -118,18 +125,38 @@ else:
 st.divider()
 
 # --- 3. BẢNG ĐẾM NGƯỢC ---
-st.header("⏳ Đang đếm ngược nè!")
-
-target_date = datetime.date(2026, 4, 1) 
+st.header("⏳ Các cột mốc sắp tới!")
 today = datetime.date.today()
-days_left = (target_date - today).days
-
-if days_left > 0:
-    st.info(f"Chỉ còn **{days_left} ngày** nữa là đến ngày gặp nhau roii 😊")
-elif days_left == 0:
-    st.success("Hôm nay là ngày đi chơi! Lên đồ thôi! 🎉")
+                    
+if not user_data["events"]:
+    st.write("Hiện chưa có lịch trình nào sắp tới. Anh sẽ cập nhật sau nha!")
 else:
-    st.write("Chúng ta đã có một chuyến đi thật vui!")
+    for event in user_data["events"]:
+        event_date = datetime.datetime.strptime(event["date"], "%Y-%m-%d").date()
+        days_left = (event_date - today).days
+
+        if days_left > 0:
+            st.info(f"✨ Còn **{days_left} ngày** nữa là đến **{event['name']}**")
+        elif days_left == 0:
+            st.success(f"🎉 Hôm nay là **{event['name']}**! Quẩy thôi!")
+        else:
+            st.write(f"Đã qua: ~~{event['name']}~~")
+            
+with st.expander("➕ Thêm sự kiện đếm ngược mới"):
+    new_event_name = st.text_input("Nội dung (VD: Sinh nhật anh, Đi Đà Lạt):")
+    new_event_date = st.date_input("Chọn ngày:")
+    
+    if st.button("Lưu sự kiện"):
+        if new_event_name:
+            user_data["events"].append({
+                "name": new_event_name,
+                "date": str(new_event_date)
+            })
+            save_data(user_data)
+            st.success("Đã thêm thành công!")
+            st.rerun()
+        else:
+            st.error("Ghi nội dung vào đã nào!")
 
 st.divider()
 
