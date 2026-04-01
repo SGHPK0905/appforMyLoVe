@@ -51,6 +51,7 @@ st.divider()
 # --- 2. HỘP QUÀ NGẪU NHIÊN ---
 st.header("🎁 Hộp Quà Mỗi Ngày")
 st.write("Mỗi ngày một điều bất ngờ nhỏ dành cho em!")
+user_data = load_data()
 today_str = str(datetime.date.today())
 
 gifts = [
