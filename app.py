@@ -131,18 +131,25 @@ today = datetime.date.today()
 if not user_data["events"]:
     st.write("Hiện chưa có lịch trình nào sắp tới. Anh sẽ cập nhật sau nha!")
 else:
-    for event in user_data["events"]:
+    for index, event in enumerate(user_data["events"]):
         event_date = datetime.datetime.strptime(event["date"], "%Y-%m-%d").date()
         days_left = (event_date - today).days
-
         vn_date_str = event_date.strftime("%d/%m/%Y")
 
-        if days_left > 0:
-            st.info(f"✨ Còn **{days_left} ngày** nữa là đến **{event['name']}**")
-        elif days_left == 0:
-            st.success(f"🎉 Hôm nay là **{event['name']}**! Quẩy thôi!")
-        else:
-            st.write(f"Đã qua: ~~{event['name']}~~")
+        col_text, col_btn = st.columns([0.85, 0.15])
+        with col_text:
+            if days_left > 0:
+                st.info(f"✨ Còn **{days_left} ngày**: **{event['name']}** ({vn_date_str})")
+            elif days_left == 0:
+                st.success(f"🎉 Hôm nay là **{event['name']}** ({vn_date_str})! Quẩy thôi!")
+            else:
+                st.write(f"Đã qua: ~~{event['name']} ({vn_date_str})~~")
+        
+        with col_btn:
+            if st.button("❌", key=f"del_{index}", help="Xóa sự kiện này"):
+                user_data["events"].pop(index)
+                save_data(user_data)
+                st.rerun()
             
 with st.expander("➕ Thêm sự kiện đếm ngược mới"):
     new_event_name = st.text_input("Nội dung (VD: Ngày đi chơi, Đi Đà Lạt, ...):")
