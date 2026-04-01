@@ -10,8 +10,12 @@ MY_DISCORD_ID = "<@472746897812226059>"
 # --- HÀM XỬ LÝ DỮ LIỆU (PERSISTENCE) ---
 def load_data():
     if os.path.exists("progress.json"):
-        with open("progress.json", "r", encoding="utf-8") as f:
-            return json.load(f)
+        try:
+            with open("progress.json", "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            pass
+            
     return {"last_opened_date": "", "opened_indices": []}
 
 def save_data(data):
