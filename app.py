@@ -132,8 +132,10 @@ if not user_data["events"]:
     st.write("Hiện chưa có lịch trình nào sắp tới. Anh sẽ cập nhật sau nha!")
 else:
     for event in user_data["events"]:
-        event_date = datetime.datetime.strptime(event["date"], "%d-%m-%Y").date()
+        event_date = datetime.datetime.strptime(event["date"], "%Y-%m-%d").date()
         days_left = (event_date - today).days
+
+        vn_date_str = event_date.strftime("%d/%m/%Y")
 
         if days_left > 0:
             st.info(f"✨ Còn **{days_left} ngày** nữa là đến **{event['name']}**")
@@ -143,18 +145,18 @@ else:
             st.write(f"Đã qua: ~~{event['name']}~~")
             
 with st.expander("➕ Thêm sự kiện đếm ngược mới"):
-    new_event_name = st.text_input("Nội dung (VD: Ngày sinh nhật, Ngày đi chơi, Đi Đà lạt, ...):")
-    new_event_date = st.date_input("Chọn ngày:")
+    new_event_name = st.text_input("Nội dung (VD: Ngày đi chơi, Đi Đà Lạt, ...):")
+    new_event_date = st.date_input("Chọn ngày:", format="DD/MM/YYYY") 
     
     if st.button("Lưu sự kiện"):
-        if new_event_name:
+        if new_event_name: 
             user_data["events"].append({
                 "name": new_event_name,
                 "date": str(new_event_date)
             })
             save_data(user_data)
             st.success("Đã thêm thành công!")
-            st.rerun()
+            st.rerun() 
         else:
             st.error("Ghi nội dung vào đã nào!")
 
