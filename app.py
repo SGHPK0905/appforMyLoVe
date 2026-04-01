@@ -132,7 +132,7 @@ if not user_data["events"]:
     st.write("Hiện chưa có lịch trình nào sắp tới. Anh sẽ cập nhật sau nha!")
 else:
     for event in user_data["events"]:
-        event_date = datetime.datetime.strptime(event["date"], "%Y-%m-%d").date()
+        event_date = datetime.datetime.strptime(event["date"], "%d-%m-%Y").date()
         days_left = (event_date - today).days
 
         if days_left > 0:
