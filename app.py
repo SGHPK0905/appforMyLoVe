@@ -2,6 +2,8 @@ import streamlit as st
 import datetime
 import requests
 import random
+import json
+import os
 
 MY_DISCORD_ID = "<@472746897812226059>" 
 
