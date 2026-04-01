@@ -4,6 +4,7 @@ import requests
 import random
 import json
 import os
+import streamlit.components.v1 as components
 
 MY_DISCORD_ID = "<@472746897812226059>" 
 
@@ -12,7 +13,9 @@ def load_data():
     default_data = {
         "last_opened_date": "", 
         "opened_indices": [],
-        "events": []
+        "events": [],
+        "custom_coupons": [],
+        "spotify_url": "https://open.spotify.com/embed/playlist/37i9dQZF1EJMlmaDUAhknC?utm_source=generator"
     }
     if os.path.exists("progress.json"):
         try:
@@ -20,6 +23,10 @@ def load_data():
                 data = json.load(f)
                 if "events" not in data:
                     data["events"] = []
+                if "spotify_url" not in data:
+                    data["spotify_url"] = default_data["spotify_url"]
+                if "custom_coupons" not in data: 
+                    data["custom_coupons"] = []           
                 return data
         except Exception:
             pass
@@ -61,11 +68,29 @@ st.set_page_config(page_title="For You ❤️", page_icon="🎁", layout="center
 st.title("Hi bé yêu của anh 🩵👋")
 st.write("Chào mừng em đến với trạm tiếp sức năng lượng!")
 st.divider()
+user_data = load_data()
+
+# --- TRẠM PHÁT NHẠC ---
+st.header("🎵 Playlist chung của mình nè!")
+spotify_link = user_data.get("spotify_url", "")
+
+if "open.spotify.com" in spotify_link and "/embed/" not in spotify_link:
+    spotify_link = spotify_link.replace("spotify.com/track/", "spotify.com/embed/track/")
+    spotify_link = spotify_link.replace("spotify.com/playlist/", "spotify.com/embed/playlist/")
+    spotify_link = spotify_link.replace("spotify.com/album/", "spotify.com/embed/album/")
+    spotify_link = spotify_link.split("?")[0]
+
+if spotify_link:
+    components.html(
+        f'<iframe style="border-radius:12px" src="{spotify_link}" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>',
+        height=360
+    )
+st.divider()
+
 
 # --- 2. HỘP QUÀ NGẪU NHIÊN ---
 st.header("🎁 Hộp Quà Mỗi Ngày")
 st.write("Mỗi ngày một điều bất ngờ nhỏ dành cho em!")
-user_data = load_data()
 today_str = str(datetime.date.today())
 
 gifts = [
@@ -86,7 +111,6 @@ gifts = [
         "image": "https://media.tenor.com/M22T2I3g5vMAAAAM/massages-meow.gif"
     },
     
-    # Nhóm quà chỉ có chữ (giữ nguyên cảm xúc mộc mạc)
     {"text": "Hôm nay em cực kỳ xinh đẹp! ✨", "image": None},
     {"text": "Anh yêu em nhiều hơn ngày hôm qua ❤️", "image": None},
     {"text": "Một voucher: Được anh đấm bóp vai 15 phút 💆‍♀️", "image": None},
@@ -110,12 +134,10 @@ else:
     if st.button("Mở quà ngay 🎁", key="open_gift"):
         all_indices = list(range(len(gifts)))
         unopened_indices = [i for i in all_indices if i not in user_data["opened_indices"]]
-        
         if not unopened_indices:
             user_data["opened_indices"] = []
             unopened_indices = all_indices
             st.toast("Bé mở hết quà rồi! Anh làm mới lại kho quà cho bé hehe ✨")
-        
         new_index = random.choice(unopened_indices)
         user_data["last_opened_date"] = today_str
         user_data["opened_indices"].append(new_index)
@@ -171,51 +193,79 @@ st.divider()
 
 # --- 4. CỬA HÀNG COUPON ---
 st.header("🎟️ Cửa hàng Vé Tình Yêu")
-st.write("Bấm vào để dùng vé, anh sẽ biết ngay lập tức!")
 
-row1_col1, row1_col2 = st.columns(2)
-row2_col1, row2_col2 = st.columns(2)
-row3_col1, row3_col2 = st.columns(2)
-
-with row1_col1:
-    st.markdown("### 🧋 Vé trà sữa")
-    if st.button("Dùng vé", key="v_trasua"):
+# A. Các vé mặc định
+st.subheader("Vé mặc định")
+c1, c2 = st.columns(2)
+with c1:
+    if st.button("🧋 Vé trà sữa", use_container_width=True):
         st.toast("Đã báo anh mua Matcha Latte!")
         send_discord_message(f"{MY_DISCORD_ID} 🚨 TING TING! Bé muốn uống Matcha Latte kìa! 🧋")
-
-with row1_col2:
-    st.markdown("### 🫂 Vé một cái ôm")
-    if st.button("Dùng vé", key="v_om"):
-        st.toast("Anh đang bay tới ôm bé đây!")
-        send_discord_message(f"{MY_DISCORD_ID} 🚨 TING TING! Bé đang cần 1 cái ôm ngay lập tức! 🫂")
-
-with row2_col1:
-    st.markdown("### 🍳 Vé anh nấu ăn")
-    if st.button("Dùng vé", key="v_nau"):
+    if st.button("🍳 Vé anh nấu ăn", use_container_width=True):
         st.toast("Menu hôm nay do bé chọn hết!")
-        send_discord_message(f"{MY_DISCORD_ID} 🚨 TING TING! Bé muốn ăn cơm anh nấu. Chuẩn bị vào bếp thôi! 👨‍🍳")
-
-with row2_col2:
-    st.markdown("### 😤 Vé giận 5 phút")
-    if st.button("Dùng vé", key="v_gian"):
-        st.toast("Đã báo anh chuẩn bị dỗ bé!")
-        send_discord_message(f"{MY_DISCORD_ID} 🚨 CẢNH BÁO! Bé đang giận! Mau nhắn tin dỗ dành đi!!! 😤")
-
-with row3_col1:
-    st.markdown("### 🏰 Vé đi chơi")
-    if st.button("Dùng vé", key="v_choi"):
+        send_discord_message(f"{MY_DISCORD_ID} 🚨 TING TING! Bé muốn ăn cơm anh nấu! 👨‍🍳")
+    if st.button("🏰 Vé đi chơi", use_container_width=True):
         st.toast("Bé muốn đi đâu nàoo 🏍️")
         send_discord_message(f"{MY_DISCORD_ID} 🚨 TING TING! Bé muốn đi chơi cùng anh nè! 🍿")
-
-with row3_col2:
-    st.markdown("### ✨ Vé làm nũng")
-    if st.button("Dùng vé", key="v_nung"):
+with c2:
+    if st.button("🫂 Vé một cái ôm", use_container_width=True):
+        st.toast("Anh đang bay tới ôm bé đây!")
+        send_discord_message(f"{MY_DISCORD_ID} 🚨 TING TING! Bé đang cần 1 cái ôm! 🫂")
+    if st.button("😤 Vé giận 5 phút", use_container_width=True):
+        st.toast("Đã báo anh chuẩn bị dỗ bé!")
+        send_discord_message(f"{MY_DISCORD_ID} 🚨 CẢNH BÁO! Bé đang giận! Mau dỗ đi! 😤")
+    if st.button("✨ Vé làm nũng", use_container_width=True):
         st.toast("Bé muốn làm nũng hãa, anh nghe nè!")
-        send_discord_message(f"{MY_DISCORD_ID} 🚨 TING TING! Bé muốn làm nũng rồi kìa, rep tin nhắn ngay! 🥺")
+        send_discord_message(f"{MY_DISCORD_ID} 🚨 TING TING! Bé muốn làm nũng rồi kìa! 🥺")
+
+# B. Các vé tự chế (Custom)
+if user_data["custom_coupons"]:
+    st.write("")
+    st.subheader("Vé do bé tự chế ✨")
+    for i in range(0, len(user_data["custom_coupons"]), 2):
+        cols = st.columns(2)
+        for j in range(2):
+            idx = i + j
+            if idx < len(user_data["custom_coupons"]):
+                coupon = user_data["custom_coupons"][idx]
+                with cols[j]:
+                    cc1, cc2 = st.columns([0.8, 0.2])
+                    with cc1:
+                        if st.button(f"🎫 {coupon['name']}", key=f"use_c_{idx}", use_container_width=True):
+                            st.toast(f"Đã dùng vé {coupon['name']}!")
+                            send_discord_message(f"{MY_DISCORD_ID} 🎫 **VÉ TỰ CHẾ:** Bé vừa dùng vé **[{coupon['name']}]**! Chuẩn bị tinh thần nha! 😂")
+                    with cc2:
+                        if st.button("🗑️", key=f"del_c_{idx}", help="Xóa vé này"):
+                            user_data["custom_coupons"].pop(idx)
+                            save_data(user_data)
+                            st.rerun()
+
+with st.expander("🎨 Tự tạo vé mới theo ý bé"):
+    custom_name = st.text_input("Tên vé (VD: Vé được đi nhậu, Vé được bắt anh im lặng...):")
+    if st.button("Tạo vé ngay"):
+        if custom_name:
+            user_data["custom_coupons"].append({"name": custom_name})
+            save_data(user_data)
+            st.success(f"Đã tạo vé '{custom_name}' thành công!")
+            st.rerun()
 
 st.divider()
 
-# --- 5. GÓC SOS ---
+# --- 5. HÒM THƯ BÍ MẬT ---
+st.header("💌 Hòm Thư Tâm Sự")
+st.write("Có điều gì muốn nói, hay tự nhiên muốn đòi quà thì bé cứ nhắn vào đây nha!")
+tam_su = st.text_area("Bé gõ vào đây nè:", placeholder="Ví dụ: Tự nhiên thèm ăn lẩu quá anh ơiii...", height=100)
+
+if st.button("Gửi cho anh 🚀", use_container_width=True):
+    if tam_su.strip() == "":
+        st.warning("Bé chưa gõ gì kìa!")
+    else:
+        st.toast("Đã gửi thư thành công! Đợi anh check nhaa.")
+        send_discord_message(f"{MY_DISCORD_ID} 💌 **THƯ TỪ BÉ YÊU:**\n> {tam_su}")
+
+st.divider()
+
+# --- 6. GÓC SOS ---
 st.header("🚨 Góc Cấp Cứu (SOS)")
 st.write("Tụt mood hay áp lực quá thì ấn vào đây nha 🥺")
 
