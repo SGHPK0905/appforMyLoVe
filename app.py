@@ -127,7 +127,7 @@ st.divider()
 # --- 3. BẢNG ĐẾM NGƯỢC ---
 st.header("⏳ Các cột mốc sắp tới!")
 today = datetime.date.today()
-                    
+
 if not user_data["events"]:
     st.write("Hiện chưa có lịch trình nào sắp tới. Anh sẽ cập nhật sau nha!")
 else:
@@ -143,7 +143,7 @@ else:
             st.write(f"Đã qua: ~~{event['name']}~~")
             
 with st.expander("➕ Thêm sự kiện đếm ngược mới"):
-    new_event_name = st.text_input("Nội dung (VD: Sinh nhật anh, Đi Đà Lạt):")
+    new_event_name = st.text_input("Nội dung (VD: Ngày sinh nhật, Ngày đi chơi, Đi Đà lạt, ...):")
     new_event_date = st.date_input("Chọn ngày:")
     
     if st.button("Lưu sự kiện"):
