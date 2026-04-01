@@ -32,8 +32,9 @@ def send_discord_message(content):
 
 # --- HÀM QUÀ TẶNG ---
 @st.dialog("Tèn ten! Quà của bé đâyyy 🎁")
-def show_gift_popup(gift_item):
-    st.balloons()
+def show_gift_popup(gift_item, is_new=True):
+    if is_new:
+        st.balloons()
     
     st.markdown(
         f"<h2 style='text-align: center; color: #ff4b4b; line-height: 1.5;'>{gift_item['text']}</h2>", 
