@@ -96,7 +96,6 @@ div.stButton > button[kind="primary"]:hover {
 user_data = load_data()
 
 st.title("Hi bé yêu của anh 🩵👋")
-
 if user_data.get("boyfriend_reply"):
     st.success(f"💌 **Tin nhắn từ anh:** {user_data['boyfriend_reply']}")
 else:
