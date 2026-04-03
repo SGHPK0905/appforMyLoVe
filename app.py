@@ -15,7 +15,8 @@ def load_data():
         "opened_indices": [],
         "events": [],
         "custom_coupons": [],
-        "spotify_url": "https://open.spotify.com/embed/playlist/37i9dQZF1EJMlmaDUAhknC?utm_source=generator"
+        "spotify_url": "https://open.spotify.com/embed/playlist/37i9dQZF1EJMlmaDUAhknC?utm_source=generator",
+        "boyfriend_reply": ""
     }
     if os.path.exists("progress.json"):
         try:
@@ -92,10 +93,16 @@ div.stButton > button[kind="primary"]:hover {
 </style>
 """, unsafe_allow_html=True)
 
-st.title("Hi bé yêu của anh 🩵👋")
-st.write("Chào mừng em đến với trạm tiếp sức năng lượng!")
-st.divider()
 user_data = load_data()
+
+st.title("Hi bé yêu của anh 🩵👋")
+
+if user_data.get("boyfriend_reply"):
+    st.success(f"💌 **Tin nhắn từ anh:** {user_data['boyfriend_reply']}")
+else:
+    st.write("Chào mừng em đến với trạm tiếp sức năng lượng!")
+    
+st.divider()
 
 # --- TRẠM PHÁT NHẠC ---
 st.header("🎵 Playlist chung của mình nè!")
@@ -263,9 +270,9 @@ if user_data["custom_coupons"]:
                             st.rerun()
 
 with st.expander("🎨 Tự tạo vé mới theo ý bé"):
-    col_emj, col_text = st.columns([0.2, 0.8])
+    col_emj, col_text = st.columns([0.25, 0.75])
     with col_emj:
-        custom_emoji = st.text_input("Emoji:", value="🎫", max_chars=2, help="Copy 1 icon dán vào đây")
+        custom_emoji = st.text_input("Icon:", value="🎫", max_chars=2, help="Dùng bàn phím đt để chọn Icon")
     with col_text:
         custom_name = st.text_input("Tên vé (VD: Vé được đi nhậu, Vé được bắt anh im lặng...):")
         
@@ -293,6 +300,19 @@ if st.button("Gửi cho anh 🚀", use_container_width=True):
         st.toast("Đã gửi thư thành công! Đợi anh check nhaa.")
         send_discord_message(f"{MY_DISCORD_ID} 💌 **THƯ TỪ BÉ YÊU:**\n> {tam_su}")
 
+with st.expander("Góc của anh 👀)"):
+    loi_nhan_moi = st.text_input("Gõ lời nhắn để rep bé:", value=user_data.get("boyfriend_reply", ""))
+    col_save, col_del = st.columns(2)
+    with col_save:
+        if st.button("Cập nhật lời nhắn", use_container_width=True):
+            user_data["boyfriend_reply"] = loi_nhan_moi
+            save_data(user_data)
+            st.rerun()
+    with col_del:
+        if st.button("Xóa lời nhắn", use_container_width=True):
+            user_data["boyfriend_reply"] = ""
+            save_data(user_data)
+            st.rerun()
 st.divider()
 
 # --- 6. GÓC SOS ---
