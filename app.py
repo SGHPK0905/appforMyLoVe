@@ -11,13 +11,7 @@ MY_DISCORD_ID = "<@472746897812226059>"
 
 # --- HÀM XỬ LÝ DỮ LIỆU (PERSISTENCE) ---
 def load_data():
-    try:
-        response = requests.get(GSCRIPT_URL)
-        if response.status_code == 200:
-            return response.json()
-    except:
-        pass
-    return {
+    default_data = {
         "last_opened_date": "", 
         "opened_indices": [],
         "events": [],
@@ -25,18 +19,30 @@ def load_data():
         "spotify_url": "https://open.spotify.com/embed/playlist/37i9dQZF1EJMlmaDUAhknC?utm_source=generator",
         "boyfriend_reply": ""
     }
+    if os.path.exists("progress.json"):
+        try:
+            with open("progress.json", "r", encoding="utf-8") as f:
+                data = json.load(f)
+                if "events" not in data:
+                    data["events"] = []
+                if "spotify_url" not in data:
+                    data["spotify_url"] = default_data["spotify_url"]
+                if "custom_coupons" not in data: 
+                    data["custom_coupons"] = []           
+                return data
+        except Exception:
+            pass
+    return default_data
 
 def save_data(data):
-    try:
-        requests.post(GSCRIPT_URL, data=json.dumps(data, ensure_ascii=False))
-    except:
-        st.error("Không thể lưu dữ liệu vào Google Sheets!")
+    with open("progress.json", "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=4)
 
 def send_discord_message(content):
     webhook_url = "https://discord.com/api/webhooks/1488241713003892958/if86rMDuP_xW_8A-WlL90OpbeidNcfBQWNB35YxFl83C_BbPeuL2GWRSA_Ptbg0SjYa_" 
-    payload = {"content": content, "username": "Trạm Yêu Thương"}
+    data = {"content": content, "username": "Trạm Yêu Thương"}
     try:
-        requests.post(webhook_url, json=payload)
+        requests.post(webhook_url, json=data)
     except:
         pass
 
