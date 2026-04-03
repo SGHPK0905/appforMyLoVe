@@ -7,7 +7,7 @@ import os
 import time
 import streamlit.components.v1 as components
 
-GSCRIPT_URL = "https://script.google.com/macros/s/AKfycbz8t0bz24NDm4XysTZxfqbHtr_5SMimV5WW3p64St0u/dev"
+GSCRIPT_URL = "https://script.google.com/macros/s/AKfycbxmNTOUvfF2LO-D9qknbANp_I1LNv588v5icguiuzhRYtdq8-I3D_QrOgUIzUNk-qCr0w/exec"
 MY_DISCORD_ID = "<@472746897812226059>" 
 
 # --- HÀM XỬ LÝ DỮ LIỆU (PERSISTENCE) ---
