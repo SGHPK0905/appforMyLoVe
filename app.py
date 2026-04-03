@@ -108,9 +108,6 @@ st.divider()
 st.header("🎵 Playlist chung của mình nè!")
 spotify_link = user_data.get("spotify_url", "")
 if spotify_link:
-    spotify_link = spotify_link.split("?")[0]
-    if "spotify.com/" in spotify_link and "/embed/" not in spotify_link:
-        spotify_link = spotify_link.replace("spotify.com/", "spotify.com/embed/")
     components.html(
         f'<iframe style="border-radius:12px" src="{spotify_link}" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>',
         height=360
