@@ -4,6 +4,7 @@ import requests
 import random
 import json
 import os
+import time
 import streamlit.components.v1 as components
 
 GSCRIPT_URL = "https://script.google.com/macros/s/AKfycbz8t0bz24NDm4XysTZxfqbHtr_5SMimV5WW3p64St0u/dev"
@@ -21,18 +22,15 @@ def load_data():
     }
 
     try:
-        response = requests.get(GSCRIPT_URL)
+        response = requests.get(f"{GSCRIPT_URL}?t={time.time()}")
         if response.status_code == 200:
             data = response.json()
             
-            if "events" not in data:
-                data["events"] = []
-            if "custom_coupons" not in data: 
-                data["custom_coupons"] = []           
+            if "events" not in data: data["events"] = []
+            if "custom_coupons" not in data: data["custom_coupons"] = []           
             if "spotify_url" not in data or data["spotify_url"] == "":
                 data["spotify_url"] = default_data["spotify_url"]
-            if "boyfriend_reply" not in data:
-                data["boyfriend_reply"] = ""
+            if "boyfriend_reply" not in data: data["boyfriend_reply"] = ""
                 
             return data
     except Exception:
@@ -42,7 +40,9 @@ def load_data():
 
 def save_data(data):
     try:
-        requests.post(GSCRIPT_URL, data=json.dumps(data, ensure_ascii=False))
+        headers = {'Content-Type': 'application/json'}
+        payload = json.dumps(data, ensure_ascii=False).encode('utf-8')
+        requests.post(GSCRIPT_URL, data=payload, headers=headers)
     except:
         pass
 
