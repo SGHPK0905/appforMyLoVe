@@ -105,7 +105,6 @@ if "user_data" not in st.session_state:
     st.session_state.user_data = load_data()
     
 user_data = st.session_state.user_data
-# -------------------------------------------------------------
 
 st.title("Hi bé yêu của anh 🩵👋")
 if user_data.get("boyfriend_reply"):
