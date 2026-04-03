@@ -114,7 +114,6 @@ if spotify_link:
     )
 st.divider()
 
-
 # --- 2. HỘP QUÀ NGẪU NHIÊN ---
 st.header("🎁 Hộp Quà Mỗi Ngày")
 st.write("Mỗi ngày một điều bất ngờ nhỏ dành cho em!")
