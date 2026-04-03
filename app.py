@@ -11,13 +11,7 @@ MY_DISCORD_ID = "<@472746897812226059>"
 
 # --- HÀM XỬ LÝ DỮ LIỆU (PERSISTENCE) ---
 def load_data():
-    try:
-        response = requests.get(GSCRIPT_URL)
-        if response.status_code == 200:
-            return response.json()
-    except:
-        pass
-    return {
+    default_data = {
         "last_opened_date": "", 
         "opened_indices": [],
         "events": [],
