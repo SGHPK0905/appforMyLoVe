@@ -26,17 +26,37 @@ def load_data():
         "boyfriend_reply": ""
     }
 
+    try:
+        response = requests.get(GSCRIPT_URL)
+        if response.status_code == 200:
+            data = response.json()
+            
+            if "events" not in data:
+                data["events"] = []
+            if "custom_coupons" not in data: 
+                data["custom_coupons"] = []           
+            if "spotify_url" not in data or data["spotify_url"] == "":
+                data["spotify_url"] = default_data["spotify_url"]
+            if "boyfriend_reply" not in data:
+                data["boyfriend_reply"] = ""
+                
+            return data
+    except Exception:
+        pass
+        
+    return default_data
+
 def save_data(data):
     try:
         requests.post(GSCRIPT_URL, data=json.dumps(data, ensure_ascii=False))
     except:
-        st.error("Không thể lưu dữ liệu vào Google Sheets!")
+        pass
 
 def send_discord_message(content):
     webhook_url = "https://discord.com/api/webhooks/1488241713003892958/if86rMDuP_xW_8A-WlL90OpbeidNcfBQWNB35YxFl83C_BbPeuL2GWRSA_Ptbg0SjYa_" 
-    payload = {"content": content, "username": "Trạm Yêu Thương"}
+    data = {"content": content, "username": "Trạm Yêu Thương"}
     try:
-        requests.post(webhook_url, json=payload)
+        requests.post(webhook_url, json=data)
     except:
         pass
 
