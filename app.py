@@ -143,7 +143,6 @@ gifts = [
     {"text": "Nụ cười của em là liều thuốc cho anh đó 😊", "image": None},
     {"text": "Chúc công chúa của anh một ngày thật năng suất nhé!", "image": None},
     {"text": "Em luôn đẹp trong mắt anh và lúc mãi mãi là vậy nên là đừng tự ti nhaa ❤️", "image": None},
-    {"text": "Check tin nhắn của anh chuaa 👀", "image": None},
     {"text": "Chỉ muốn nói là nhớ em lắm, yêu bé lắm 🩵🥰", "image": None},
     {"text": "Bé nhớ nói 'dạ' với anh nhiều nhaa, anh thích lắm á, yêu cực luonn 🥹🥹", "image": None},
     {"text": "Bé muốn gì nhắn anh ngay nàooo, anh sẵn sàng roi đâyyy 🥰", "image": None},
