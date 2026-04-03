@@ -298,7 +298,7 @@ if st.button("Gửi cho anh 🚀", use_container_width=True):
         st.toast("Đã gửi thư thành công! Đợi anh check nhaa.")
         send_discord_message(f"{MY_DISCORD_ID} 💌 **THƯ TỪ BÉ YÊU:**\n> {tam_su}")
 
-with st.expander("Góc của anh 👀)"):
+with st.expander("Góc của anh 👀"):
     loi_nhan_moi = st.text_input("Gõ lời nhắn để rep bé:", value=user_data.get("boyfriend_reply", ""))
     col_save, col_del = st.columns(2)
     with col_save:
