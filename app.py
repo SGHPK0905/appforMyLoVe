@@ -10,7 +10,7 @@ import streamlit.components.v1 as components
 GSCRIPT_URL = "https://script.google.com/macros/s/AKfycbz8t0bz24NDm4XysTZxfqbHtr_5SMimV5WW3p64St0u/dev"
 MY_DISCORD_ID = "<@472746897812226059>" 
 
-# --- HÀM XỬ LÝ DỮ LIỆU (PERSISTENCE) ---
+# --- HÀM XỬ LÝ DỮ LIỆU ---
 def load_data():
     default_data = {
         "last_opened_date": "", 
@@ -25,13 +25,11 @@ def load_data():
         response = requests.get(f"{GSCRIPT_URL}?t={time.time()}")
         if response.status_code == 200:
             data = response.json()
-            
             if "events" not in data: data["events"] = []
             if "custom_coupons" not in data: data["custom_coupons"] = []           
             if "spotify_url" not in data or data["spotify_url"] == "":
                 data["spotify_url"] = default_data["spotify_url"]
             if "boyfriend_reply" not in data: data["boyfriend_reply"] = ""
-                
             return data
     except Exception:
         pass
@@ -98,12 +96,16 @@ div.stButton > button[kind="primary"] {
 }
 
 div.stButton > button[kind="primary"]:hover {
-    background-color: #CC0000 !important; /* Đỏ sậm hơn chút khi hover */
+    background-color: #CC0000 !important; 
 }
 </style>
 """, unsafe_allow_html=True)
 
-user_data = load_data()
+if "user_data" not in st.session_state:
+    st.session_state.user_data = load_data()
+    
+user_data = st.session_state.user_data
+# -------------------------------------------------------------
 
 st.title("Hi bé yêu của anh 🩵👋")
 if user_data.get("boyfriend_reply"):
@@ -145,7 +147,6 @@ gifts = [
         "text": "Ting ting! Một suất gội đầu massage thư giãn miễn phí do chính tay anh phục vụ nha 💆‍♀️✨", 
         "image": "https://media.tenor.com/M22T2I3g5vMAAAAM/massages-meow.gif"
     },
-    
     {"text": "Hôm nay em cực kỳ xinh đẹp! ✨", "image": None},
     {"text": "Anh yêu em nhiều hơn ngày hôm qua ❤️", "image": None},
     {"text": "Một voucher: Được anh đấm bóp vai 15 phút 💆‍♀️", "image": None},
