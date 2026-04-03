@@ -4,7 +4,6 @@ import requests
 import random
 import json
 import os
-import re
 import streamlit.components.v1 as components
 
 MY_DISCORD_ID = "<@472746897812226059>" 
@@ -107,18 +106,13 @@ st.divider()
 
 # --- TRẠM PHÁT NHẠC ---
 st.header("🎵 Playlist chung của mình nè!")
-raw_spotify_link = user_data.get("spotify_url", "")
-
-if raw_spotify_link:
-    embed_link = raw_spotify_link.strip().split("?")[0]
-    
-    embed_link = re.sub(r'intl-[a-zA-Z0-9]+/', '', embed_link)
-    
-    if "spotify.com/" in embed_link and "/embed/" not in embed_link:
-        embed_link = embed_link.replace("spotify.com/", "spotify.com/embed/")
-        
+spotify_link = user_data.get("spotify_url", "")
+if spotify_link:
+    spotify_link = spotify_link.split("?")[0]
+    if "spotify.com/" in spotify_link and "/embed/" not in spotify_link:
+        spotify_link = spotify_link.replace("spotify.com/", "spotify.com/embed/")
     components.html(
-        f'<iframe style="border-radius:12px" src="{embed_link}" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>',
+        f'<iframe style="border-radius:12px" src="{spotify_link}" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>',
         height=360
     )
 st.divider()
