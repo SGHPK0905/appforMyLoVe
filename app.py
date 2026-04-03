@@ -101,9 +101,6 @@ user_data = load_data()
 st.header("🎵 Playlist chung của mình nè!")
 spotify_link = user_data.get("spotify_url", "")
 if spotify_link:
-    if "open.spotify.com" in spotify_link and "/embed/" not in spotify_link:
-        base_url = spotify_link.split("?")[0]
-        spotify_link = base_url.replace("open.spotify.com/", "open.spotify.com/embed/")
         
     components.html(
         f'<iframe style="border-radius:12px" src="{spotify_link}" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>',
@@ -255,7 +252,8 @@ if user_data["custom_coupons"]:
                 with cols[j]:
                     cc1, cc2 = st.columns([0.8, 0.2])
                     with cc1:
-                        if st.button(f"🎫 {coupon['name']}", key=f"use_c_{idx}", use_container_width=True):
+                        icon = coupon.get("emoji", "🎫")
+                        if st.button(f"{icon} {coupon['name']}", key=f"use_c_{idx}", use_container_width=True):
                             st.toast(f"Đã dùng vé {coupon['name']}!")
                             send_discord_message(f"{MY_DISCORD_ID} 🎫 **VÉ TỰ CHẾ:** Bé vừa dùng vé **[{coupon['name']}]**! Chuẩn bị tinh thần nha! 😂")
                     with cc2:
@@ -265,12 +263,20 @@ if user_data["custom_coupons"]:
                             st.rerun()
 
 with st.expander("🎨 Tự tạo vé mới theo ý bé"):
-    custom_name = st.text_input("Tên vé (VD: Vé được đi nhậu, Vé được bắt anh im lặng...):")
-    if st.button("Tạo vé ngay"):
+    col_emj, col_text = st.columns([0.2, 0.8])
+    with col_emj:
+        custom_emoji = st.text_input("Emoji:", value="🎫", max_chars=2, help="Copy 1 icon dán vào đây")
+    with col_text:
+        custom_name = st.text_input("Tên vé (VD: Vé được đi nhậu, Vé được bắt anh im lặng...):")
+        
+    if st.button("Tạo vé ngay", use_container_width=True):
         if custom_name:
-            user_data["custom_coupons"].append({"name": custom_name})
+            user_data["custom_coupons"].append({
+                "name": custom_name,
+                "emoji": custom_emoji if custom_emoji else "🎫"
+            })
             save_data(user_data)
-            st.success(f"Đã tạo vé '{custom_name}' thành công!")
+            st.success(f"Đã tạo vé thành công!")
             st.rerun()
 
 st.divider()
