@@ -22,7 +22,7 @@ def load_data():
         "opened_indices": [],
         "events": [],
         "custom_coupons": [],
-        "spotify_url": "https://open.spotify.com/embed/playlist/13",
+        "spotify_url": "https://open.spotify.com/embed/playlist/37i9dQZF1EJMlmaDUAhknC?utm_source=generator",
         "boyfriend_reply": ""
     }
 
