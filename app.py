@@ -42,7 +42,8 @@ def save_data(data):
     try:
         headers = {'Content-Type': 'application/json'}
         payload = json.dumps(data, ensure_ascii=False).encode('utf-8')
-        requests.post(GSCRIPT_URL, data=payload, headers=headers)
+        requests.post(GSCRIPT_URL, data=payload, headers=headers, allow_redirects=True)
+        st.session_state.user_data = data
     except:
         pass
 
