@@ -100,14 +100,11 @@ user_data = load_data()
 # --- TRẠM PHÁT NHẠC ---
 st.header("🎵 Playlist chung của mình nè!")
 spotify_link = user_data.get("spotify_url", "")
-
-if "open.spotify.com" in spotify_link and "/embed/" not in spotify_link:
-    spotify_link = spotify_link.replace("spotify.com/track/", "spotify.com/embed/track/")
-    spotify_link = spotify_link.replace("spotify.com/playlist/", "spotify.com/embed/playlist/")
-    spotify_link = spotify_link.replace("spotify.com/album/", "spotify.com/embed/album/")
-    spotify_link = spotify_link.split("?")[0]
-
 if spotify_link:
+    if "open.spotify.com" in spotify_link and "/embed/" not in spotify_link:
+        base_url = spotify_link.split("?")[0]
+        spotify_link = base_url.replace("open.spotify.com/", "open.spotify.com/embed/")
+        
     components.html(
         f'<iframe style="border-radius:12px" src="{spotify_link}" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>',
         height=360
