@@ -232,7 +232,7 @@ st.header("🎟️ Cửa hàng Vé Tình Yêu")
 st.subheader("Vé mặc định")
 c1, c2 = st.columns(2)
 with c1:
-    if st.button("🧋 Vé trà sữa", use_container_width=True):
+    if st.button("🧋 Vé Nước Uống", use_container_width=True):
         st.toast("Đã báo anh mua Matcha Latte!")
         send_discord_message(f"{MY_DISCORD_ID} 🚨 TING TING! Bé muốn uống Matcha Latte kìa! 🧋")
     if st.button("🍳 Vé anh nấu ăn", use_container_width=True):
