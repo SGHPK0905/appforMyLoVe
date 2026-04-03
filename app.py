@@ -267,8 +267,8 @@ if user_data["custom_coupons"]:
                     with cc1:
                         icon = coupon.get("emoji", "🎫")
                         if st.button(f"{icon} {coupon['name']}", key=f"use_c_{idx}", use_container_width=True):
-                            st.toast(f"Đã dùng vé {coupon['name']}!")
-                            send_discord_message(f"{MY_DISCORD_ID} {icon} **VÉ TỰ CHẾ:** Bé vừa dùng vé **[{coupon['name']}]**! Chuẩn bị tinh thần nha! 😂")
+                            st.toast(f"Đã dùng {coupon['name']}!")
+                            send_discord_message(f"{MY_DISCORD_ID} {icon} **VÉ TỰ CHẾ:** Bé vừa dùng **[{coupon['name']}]**! Chuẩn bị tinh thần nha! 😂")
                     with cc2:
                         if st.button("🗑️", key=f"del_c_{idx}", help="Xóa vé này"):
                             user_data["custom_coupons"].pop(idx)
