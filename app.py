@@ -6,42 +6,37 @@ import json
 import os
 import streamlit.components.v1 as components
 
+GSCRIPT_URL = "https://script.google.com/macros/s/AKfycbzeB3O3fW8MNC2VuFLGVhF1IoMxI6W08WP9RX3UXZEhE2qLX9s3Tag6gWq08fVSxOuaWA/exec"
 MY_DISCORD_ID = "<@472746897812226059>" 
 
 # --- HÀM XỬ LÝ DỮ LIỆU (PERSISTENCE) ---
 def load_data():
-    default_data = {
+    try:
+        response = requests.get(GSCRIPT_URL)
+        if response.status_code == 200:
+            return response.json()
+    except:
+        pass
+    return {
         "last_opened_date": "", 
         "opened_indices": [],
         "events": [],
         "custom_coupons": [],
-        "spotify_url": "https://open.spotify.com/embed/playlist/37i9dQZF1EJMlmaDUAhknC?utm_source=generator",
+        "spotify_url": "https://open.spotify.com/embed/playlist/13",
         "boyfriend_reply": ""
     }
-    if os.path.exists("progress.json"):
-        try:
-            with open("progress.json", "r", encoding="utf-8") as f:
-                data = json.load(f)
-                if "events" not in data:
-                    data["events"] = []
-                if "spotify_url" not in data:
-                    data["spotify_url"] = default_data["spotify_url"]
-                if "custom_coupons" not in data: 
-                    data["custom_coupons"] = []           
-                return data
-        except Exception:
-            pass
-    return default_data
 
 def save_data(data):
-    with open("progress.json", "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=4)
+    try:
+        requests.post(GSCRIPT_URL, data=json.dumps(data, ensure_ascii=False))
+    except:
+        st.error("Không thể lưu dữ liệu vào Google Sheets!")
 
 def send_discord_message(content):
     webhook_url = "https://discord.com/api/webhooks/1488241713003892958/if86rMDuP_xW_8A-WlL90OpbeidNcfBQWNB35YxFl83C_BbPeuL2GWRSA_Ptbg0SjYa_" 
-    data = {"content": content, "username": "Trạm Yêu Thương"}
+    payload = {"content": content, "username": "Trạm Yêu Thương"}
     try:
-        requests.post(webhook_url, json=data)
+        requests.post(webhook_url, json=payload)
     except:
         pass
 
