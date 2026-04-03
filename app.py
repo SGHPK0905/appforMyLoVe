@@ -132,19 +132,19 @@ today_str = str(datetime.date.today())
 gifts = [
     {
         "text": "Gửi em một chiếc ôm to bự từ xa nèeee 🫂", 
-        "image": "https://media.tenor.com/Z4XEqJk4kXEAAAAM/hug.gif"
+        "image": "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjUzYmhncGd3OGo5ZDFka2dnanZ3bGE0NWxjY2N6b3dpbTB1ajNwZyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/IzXiddo2twMmdmU8Lv/giphy.gif"
     },
     {
         "text": "Bé bị phạt! Hình phạt là phải thơm anh 1 cái 😘", 
-        "image": "https://media.tenor.com/2RoSIfK_R_AAAAAM/cat-kiss.gif"
+        "image": "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTA0aXl1ZmQzZXk4d2Roa2xwMmxoeTRwdm9jZmJoendqaHJtM2xxYSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/kvrvnB158J4fm/giphy.gif"
     },
     {
         "text": "Anh sẽ luôn bảo vệ em như Howl bảo vệ Sophie vậy đó 🏰✨", 
-        "image": "https://media.tenor.com/bX0m2gT5GkMAAAAM/howls-moving-castle.gif"
+        "image": "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMnJ2amZ4ZWJwZ3JyZWJ0OHdiZGpmYWs5Z2FmNWY1NHlqcG00dm5nYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/GcJN2Dz5XMDeM/giphy.gif"
     },
     {
         "text": "Ting ting! Một suất gội đầu massage thư giãn miễn phí do chính tay anh phục vụ nha 💆‍♀️✨", 
-        "image": "https://media.tenor.com/M22T2I3g5vMAAAAM/massages-meow.gif"
+        "image": "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaTV4Mmt0eGFrMzRrNWgzaGhvbzZydW1zazA4ZTRpNmE3YWZhZm15bCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/5jCTUWzwtqG2s/giphy.gif"
     },
     {"text": "Hôm nay em cực kỳ xinh đẹp! ✨", "image": None},
     {"text": "Anh yêu em nhiều hơn ngày hôm qua ❤️", "image": None},
