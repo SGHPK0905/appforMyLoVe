@@ -6,7 +6,7 @@ import json
 import os
 import streamlit.components.v1 as components
 
-GSCRIPT_URL = "https://script.google.com/macros/s/AKfycbzeB3O3fW8MNC2VuFLGVhF1IoMxI6W08WP9RX3UXZEhE2qLX9s3Tag6gWq08fVSxOuaWA/exec"
+GSCRIPT_URL = "https://script.google.com/macros/s/AKfycbz8t0bz24NDm4XysTZxfqbHtr_5SMimV5WW3p64St0u/dev"
 MY_DISCORD_ID = "<@472746897812226059>" 
 
 # --- HÀM XỬ LÝ DỮ LIỆU (PERSISTENCE) ---
